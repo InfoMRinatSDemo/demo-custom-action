@@ -5,6 +5,8 @@ jobs:
   hello_world_job:
     runs-on: ubuntu-latest
     name: A job to say hello
+    outputs:
+      random_number_job: ${{ steps.custom-action.outputs.random-number }}
     steps:
       - uses: actions/checkout@v3
       - id: custom-action
@@ -13,6 +15,14 @@ jobs:
           who-to-greet: "Delta Dental"
       - run: echo Random Number = ${{ steps.custom-action.outputs.random-number}}
         shell: bash
+        
+  use_random_number:
+    runs-on: ubuntu-latest
+    name: Print random number
+    needs: hello_world_job
+    steps: 
+      - run: echo ${{ needs.hello_world_job.outputs.random_number_job }}
+      
           
 
     

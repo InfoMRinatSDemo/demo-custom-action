@@ -1,0 +1,18 @@
+on:
+  push
+  
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: A job to say hello
+    steps:
+      - uses: actions/checkout@v3
+      - id: custom-action
+        uses: ./
+        with:
+          who-to-greet: "Delta Dental"
+      - run: echo Random Number = ${{ steps.custom-action.outputs.random-number}}
+        shell: bash
+          
+
+    
